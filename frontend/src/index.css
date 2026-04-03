@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   REDDIT-FLOW-NODE — Global Styles
+   Digital Exoskeleton HUD Aesthetic
+   ============================================================ */
+
+:root {
+  --neon-cyan: #00f5ff;
+  --neon-green: #39ff14;
+  --neon-orange: #ff6b00;
+  --neon-purple: #bf00ff;
+  --dark-950: #050810;
+  --dark-900: #0a0f1e;
+  --dark-800: #0f1629;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--dark-950);
+  color: #e0e8ff;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+/* --- Scrollbars --- */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--dark-900); }
+::-webkit-scrollbar-thumb { background: rgba(0, 245, 255, 0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--neon-cyan); }
+
+/* --- React Flow overrides --- */
+.react-flow__background {
+  background: radial-gradient(ellipse at center, #0a0f1e 0%, #050810 100%);
+}
+.react-flow__background pattern circle {
+  fill: rgba(0, 245, 255, 0.08) !important;
+}
+.react-flow__edge-path {
+  stroke: rgba(0, 245, 255, 0.5) !important;
+  stroke-width: 2 !important;
+  filter: drop-shadow(0 0 4px var(--neon-cyan));
+}
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: var(--neon-cyan) !important;
+  stroke-width: 2.5 !important;
+}
+.react-flow__handle {
+  width: 10px !important;
+  height: 10px !important;
+  background: var(--neon-cyan) !important;
+  border: 2px solid var(--dark-900) !important;
+  box-shadow: 0 0 8px var(--neon-cyan);
+}
+.react-flow__controls {
+  background: rgba(10, 15, 30, 0.9) !important;
+  border: 1px solid rgba(0, 245, 255, 0.2) !important;
+  border-radius: 8px !important;
+}
+.react-flow__controls-button {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(0, 245, 255, 0.1) !important;
+  color: var(--neon-cyan) !important;
+}
+.react-flow__minimap {
+  background: rgba(10, 15, 30, 0.9) !important;
+  border: 1px solid rgba(0, 245, 255, 0.2) !important;
+  border-radius: 8px !important;
+}
+
+/* --- Grid overlay on canvas --- */
+.rfn-canvas-grid {
+  background-image:
+    linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* --- Scan-line overlay --- */
+.rfn-scanline::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0,245,255,0.4), transparent);
+  animation: scanLine 6s linear infinite;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* --- HUD Border Effect --- */
+.hud-border {
+  border: 1px solid rgba(0, 245, 255, 0.15);
+  box-shadow: inset 0 0 20px rgba(0, 245, 255, 0.02);
+}
+
+/* --- Corner brackets --- */
+.corner-bracket {
+  position: relative;
+}
+.corner-bracket::before,
+.corner-bracket::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--neon-cyan);
+  border-style: solid;
+  opacity: 0.6;
+}
+.corner-bracket-tl::before {
+  top: -1px; left: -1px;
+  border-width: 2px 0 0 2px;
+}
+.corner-bracket-br::after {
+  bottom: -1px; right: -1px;
+  border-width: 0 2px 2px 0;
+}
+
+/* Custom node animations */
+@keyframes nodeGlow {
+  0%, 100% { box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px rgba(0, 245, 255, 0.2); }
+  50% { box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px rgba(0, 245, 255, 0.5), 0 0 20px rgba(0, 245, 255, 0.1); }
+}
+.node-idle {
+  animation: nodeGlow 4s ease-in-out infinite;
+}
+@keyframes processing {
+  0% { border-color: rgba(57, 255, 20, 0.4); box-shadow: 0 0 10px rgba(57,255,20,0.2); }
+  50% { border-color: rgba(57, 255, 20, 0.9); box-shadow: 0 0 25px rgba(57,255,20,0.4); }
+  100% { border-color: rgba(57, 255, 20, 0.4); box-shadow: 0 0 10px rgba(57,255,20,0.2); }
+}
+.node-processing {
+  animation: processing 1.2s ease-in-out infinite;
+}
+
+/* Progress bar animation */
+@keyframes progressFill {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+.progress-bar-animate {
+  animation: progressFill 2s ease-out forwards;
+}
+
+/* Text glow */
+.text-glow-cyan { text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px rgba(0,245,255,0.5); }
+.text-glow-green { text-shadow: 0 0 10px var(--neon-green), 0 0 20px rgba(57,255,20,0.5); }
+.text-glow-orange { text-shadow: 0 0 10px var(--neon-orange); }
