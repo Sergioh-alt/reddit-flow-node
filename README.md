@@ -4,7 +4,7 @@ Synapse Flow is a high-performance, node-based orchestration engine designed for
 
 ## Technical Architecture
 
-* **Frontend**: Built with React.js and XYFlow, featuring persistent layout hydration, custom node rotation, and 8-point omnidirectional resizing.
+* **Frontend**: Built with React.js and XYFlow, featuring persistent layout hydration and 8-point omnidirectional resizing.
 * **Backend**: FastAPI (Python) server managing a universal LLM Factory (supporting Groq, Ollama, and LiteLLM) through a structured message-passing protocol.
 * **Telemetry**: Native system resource monitoring (CPU/RAM) integrated directly into the node-graph for performance-aware automation.
 
